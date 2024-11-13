@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configuration>
+<!--
+El elemento raíz <Configuration> define la configuración general de Log4j2.
+El atributo 'status' establece el nivel de logging interno de Log4j2,
+en este caso 'warn' para mostrar advertencias y errores.
+-->
+<Configuration status="warn">
+    <!--
+    La sección <Appenders> define los destinos donde se enviarán los logs.
+    Un appender puede ser la consola, un archivo, una base de datos, etc.
+    -->
+    <Appenders>
+        <!--
+        Definición de un appender de consola llamado "Console".
+        Este appender enviará los logs a la salida estándar (consola).
+        -->
+        <Console name="Console">
+            <!--
+            <PatternLayout> define el formato de los mensajes de log.
+            El atributo 'pattern' especifica cómo se estructurará cada
+            mensaje de log.
+            En este caso:
+            - %d{HH:mm:ss.SSS}: Fecha y hora con precisión de milisegundos.
+            - [%t]: Nombre del hilo que genera el log.
+            - %mdc: Mapped Diagnostic Context, útil para agregar información
+            contextual.
+            - %-5level: Nivel de log (DEBUG, INFO, ERROR) con un ancho fijo
+            de 5 caracteres.
+            - %logger{36}: Nombre del logger, limitado a 36 caracteres.
+            - %msg: Mensaje del log.
+            - %n: Nueva línea.
+            -->
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] %mdc %-5level %logger{36} -%msg%n"/>
+        </Console>
+    </Appenders>
+    <!--
+    La sección <Loggers> define los diferentes loggers utilizados en la
+    aplicación.
+    Cada logger puede tener diferentes niveles de log y appenders asociados.
+    -->
+    <Loggers>
+        <!--
+        Definición de un logger para el paquete 'com.universidad'.
+        - 'level="debug"': Este logger capturará logs de nivel DEBUG y
+        superiores.
+        - 'additivity="false"': Evita que los logs de este logger se
+        propaguen al logger raíz.
+        - <AppenderRef ref="Console"/>: Asocia este logger con el appender
+        de consola definido anteriormente.
+        -->
+        <Logger name="com.universidad" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--
+        Definición de un logger para el paquete 'org.springframework'.
+        - 'level="error"': Este logger solo capturará logs de nivel ERROR y
+        superiores.
+        - 'additivity="false"': Evita que los logs de este logger se
+        propaguen al logger raíz.
+        - <AppenderRef ref="Console"/>: Asocia este logger con el appender
+        de consola.
+        -->
+        <Logger name="org.springframework" level="error" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--
+        Definición del logger raíz (Root Logger).
+        - 'level="info"': Este logger capturará logs de nivel INFO y
+        superiores.
+        - <AppenderRef ref="Console"/>: Asocia el logger raíz con el
+        appender de consola.
+        El logger raíz captura todos los logs que no han sido capturados por
+        loggers más específicos.
+        -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

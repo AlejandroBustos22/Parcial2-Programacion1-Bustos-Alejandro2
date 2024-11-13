@@ -1,0 +1,71 @@
+# info.app: Contiene metadatos sobre la aplicación, como la codificación y la versión de Java.
+  # app: Especifica la versión y el nombre de la aplicación.
+  # spring.application: Establece el nombre de la aplicación Spring.
+  # spring.main: Deshabilita el banner de inicio de Spring Boot.
+  # spring.datasource: Configura los detalles de conexión a la base de datos,
+  # incluyendo URL, nombre de usuario, contraseña, clase del driver y modo de inicialización.
+  # spring.jpa: Configura los ajustes de JPA, habilitando el registro de SQL,
+  # deshabilitando Open Session in View para prevenir problemas de carga perezosa,
+  # y configurando Hibernate para actualizar automáticamente el esquema de la base de datos.
+  # spring.sql.init: Especifica el modo para la inicialización de la base de
+  # datos y las ubicaciones de los scripts SQL de esquema y datos.
+  # server: Configura los ajustes del servidor, incluyendo el puerto y la habilitación de la compresión de respuestas HTTP.
+  # user: Establece la zona horaria predeterminada de la aplicación.
+  # logging: Especifica la ruta al archivo de configuración de Log4j2.
+  # -------------------------------------------------------------------------------
+
+# Información de la aplicación
+info:
+  app:
+    encoding: '@project.build.sourceEncoding@'  # Codificación del proyecto,típicamente UTF-8
+    java:
+      source: '@java.version@'                  # Versión de Java utilizada en el proyecto
+      target: '@java.version@'                  # Versión objetivo de Java parala compilación
+
+app:
+  version: '@project.version@'                  # Versión de la aplicación
+  name: '@project.name@'                        # Nombre de la aplicación
+
+spring:
+  application:
+    name: '@project.name@'                      # Nombre de la aplicación Spring
+
+  main:
+    banner-mode: 'OFF'                          # Desactiva el banner de inicio de Spring Boot
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/testdb      # URL JDBC de la base de datos MySQL
+    username: santo_domingo                      # Usuario de la base de datos
+    password: password                           # Contraseña de la base de datos
+    driver-class-name: com.mysql.cj.jdbc.Driver  # Clase del controlador JDBC de MySQL
+    initialization-mode: always                  # Siempre inicializa la base de datos con los scripts
+
+  jpa:
+    show-sql: true                               # Muestra las sentencias SQL en la consola
+    open-in-view: false                          # Desactiva Open Session in View para evitar problemas de lazy loading
+    hibernate:
+      ddl-auto: update                           # Actualiza el esquema de la base de datos automáticamente
+
+  sql:
+    init:
+      mode: always                               # Siempre inicializa la base de datos con los scripts
+      platform: mysql                            # Especifica la plataforma de la base de datos
+      schema-locations: classpath:schema.sql     # Ruta al script de creación de esquema
+      data-locations: classpath:data.sql         # Ruta al script de datos de ejemplo
+
+doc:
+  swagger-ui:
+    path: /swagger-ui/index.html # Ruta al Swagger UI
+    enabled: true # Habilita Swagger U
+
+server:
+  port: 8089                                     # Puerto en el que se ejecutará el servidor
+  compression:
+    enabled: true                                # Habilita la compresión de las respuestas HTTP
+
+user:
+  timezone: 'UTC'                                # Establece la zona horaria predeterminada de la aplicación
+
+logging:
+  config: classpath:log4j2.xml                     # Ruta al archivo deconfiguración de Log4j2
+

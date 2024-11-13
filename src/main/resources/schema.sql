@@ -1,0 +1,15 @@
+-- Crea la tabla de usuarios si no existe
+
+CREATE TABLE IF NOT EXISTS crud_user (
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+reference VARCHAR(255) NOT NULL,
+password VARCHAR(255) NOT NULL,
+first_name VARCHAR(255) NOT NULL,
+last_name VARCHAR(255) NOT NULL,
+nickname VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL UNIQUE,
+is_active BIT DEFAULT TRUE NOT NULL,
+created_at DATETIME NOT NULL,
+updated_at DATETIME NOT NULL,
+version INT DEFAULT 0 NOT NULL
+);
